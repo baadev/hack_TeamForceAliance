@@ -21,18 +21,20 @@ export default {
     data() {
         return {
             connectedToBSC: false,
+            account: null,
         }
     },
     created() {
-        if (ethereum !== undefined)
-            this.connectedToBSC = ethereum.isConnected();
+        // if (ethereum !== undefined)
+            // this.connectedToBSC = ethereum.isConnected();
     },
     methods: {
         async initMetaMask() {
             if (ethereum !== undefined) {
                 const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                const account = accounts[0];
+                account = accounts[0];
             }
+
             this.connectedToBSC = !!account;
 
             this.$store.commit(
