@@ -13,6 +13,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-var VueCookie = require('vue-cookie');
-Vue.use(VueCookie)

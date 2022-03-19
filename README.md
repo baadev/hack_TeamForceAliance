@@ -1,5 +1,4 @@
-# na-landing-page_admin
-
+# hack
 ## Project setup
 ```
 npm install

@@ -36,7 +36,6 @@
 
             <span class="d-flex flex-column">
               <v-list-item-avatar
-                
                 size="80"
                 color="grey" 
                 class="d-none d-sm-flex"
@@ -85,15 +84,16 @@
                     {{ resume[0].rate }}
                   </v-list-item-title>
 
-                  <v-list-item-title>
-                    {{ resume[0].title }}
-                  </v-list-item-title>
                   <v-list-item-title class="mb-1">
-                    Описание
+                    Опыт работы
                   </v-list-item-title>
-                  <v-list-item-subtitle class="mb-4">
-                    {{ resume[0].description }}
-                  </v-list-item-subtitle>
+
+                    <v-list-item-subtitle>
+                      {{ resume[0].title }}
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle class="mb-4">
+                      {{ resume[0].description }}
+                    </v-list-item-subtitle>
                   
                   <v-list-item-title class="mb-1">
                     Дата создания
@@ -160,23 +160,24 @@
                     fill-height
                     @click="toggle"
                   >
-
                   <v-card-text class="mt-4" >
                     <v-row
                       class="d-flex flex-row-reverse"
                     >
                       <v-scale-transition>
                         <v-btn 
-                          absolute
-                          outlined
-                          icon
                           v-if="active"
+                          absolute
+                          fab
+                          width="28"
+                          height="28"
+                          transparent="30"
+                          class="mr-4"
                         >
-                        <v-icon
-                          size="48"
-                          v-text="'mdi-check'"
-                        ></v-icon>
-
+                          <v-icon
+                            size="26"
+                            v-text="'mdi-check'"
+                          ></v-icon>
                         </v-btn>
                       </v-scale-transition>
                     </v-row>
@@ -209,9 +210,6 @@
           </v-col>
         </v-row>
       </v-col>
-
-      <!-- slider -->
-
     </v-row>
   </v-container>
 </template>
