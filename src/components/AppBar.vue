@@ -24,12 +24,15 @@ export default {
         }
     },
     created() {
-      this.connectedToBSC = ethereum.isConnected();
+        if (ethereum !== undefined)
+            this.connectedToBSC = ethereum.isConnected();
     },
     methods: {
         async initMetaMask() {
-            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            const account = accounts[0];
+            if (ethereum !== undefined) {
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                const account = accounts[0];
+            }
             this.connectedToBSC = !!account;
 
             this.$store.commit(

@@ -88,12 +88,35 @@
                     Опыт работы
                   </v-list-item-title>
 
+                  <v-list three-line>
+                    <template v-for="(ex_item, index) in resume[0].expirience">
+                      <v-subheader 
+                        :key="index" 
+                        v-text="ex_item.title"
+                      ></v-subheader>
+
+                      <v-list-item :key="index">
+                        <v-list-item-avatar>
+                          {{ index }}
+                        </v-list-item-avatar>
+
+                        <v-list-item-content>
+                          <v-list-item-title v-html="ex_item.job"></v-list-item-title>
+                          <v-list-item-subtitle v-html="ex_item.description"></v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
+                  </v-list>
+
+                  <v-card>
                     <v-list-item-subtitle>
                       {{ resume[0].title }}
                     </v-list-item-subtitle>
                     <v-list-item-subtitle class="mb-4">
                       {{ resume[0].description }}
                     </v-list-item-subtitle>
+
+                  </v-card>
                   
                   <v-list-item-title class="mb-1">
                     Дата создания
