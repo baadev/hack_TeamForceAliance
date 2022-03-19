@@ -30,10 +30,10 @@ export default {
     },
     methods: {
         async initMetaMask() {
-            if (ethereum !== undefined) {
-                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                account = accounts[0];
-            }
+            // if (ethereum !== undefined) {
+            //     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            //     account = accounts[0];
+            // }
 
             this.connectedToBSC = !!account;
 
