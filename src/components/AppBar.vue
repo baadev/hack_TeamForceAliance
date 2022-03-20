@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar app dark class="flex-grow-0">
+    <v-app-bar app dark>
         <v-img
             alt="NA Logo"
             class="shrink mr-2"
@@ -18,24 +18,22 @@
 export default {
     name: "AppBar",
 
-    data() {
-        return {
-            connectedToBSC: false,
-            account: null,
-        }
-    },
+    data: () => ({
+        connectedToBSC: false,
+        account: 0,
+    }),
     created() {
-        // if (ethereum !== undefined)
-            // this.connectedToBSC = ethereum.isConnected();
+        if (ethereum !== undefined)
+            this.connectedToBSC = ethereum.isConnected();
     },
     methods: {
         async initMetaMask() {
-            // if (ethereum !== undefined) {
-            //     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            //     account = accounts[0];
-            // }
+            if (ethereum !== undefined) {
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                this.account = accounts[0];
+            }
 
-            this.connectedToBSC = !!account;
+            this.connectedToBSC = !!this.account;
 
             this.$store.commit(
                 'showMessage', 

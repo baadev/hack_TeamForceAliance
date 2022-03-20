@@ -7,6 +7,13 @@
         style="max-height: 860px;" 
         class="overflow-y-auto"
       >
+        <v-btn @click="exportData">
+          Скачать всю БД
+        </v-btn>
+        <v-btn @click="exportData">
+          Скачать  БД
+        </v-btn>
+
         <v-card
           v-for="item in items"
           :key="item.id"
@@ -103,20 +110,17 @@
                         <v-list-item-content>
                           <v-list-item-title v-html="ex_item.job"></v-list-item-title>
                           <v-list-item-subtitle v-html="ex_item.description"></v-list-item-subtitle>
+                          <v-list-item-subtitle>{{ 'c ' + ex_item.date_begin + ', по ' + ex_item.date_end }}</v-list-item-subtitle>
+                          <span v-if="ex_item.achievements">
+                            <v-list-item-title >Достижения</v-list-item-title>
+                            <v-list-item-subtitle v-for="achievement in ex_item.achievements" :key="achievement.index">
+                              {{ achievement.index +'. '+achievement }}
+                            </v-list-item-subtitle>
+                          </span>
                         </v-list-item-content>
                       </v-list-item>
                     </template>
                   </v-list>
-
-                  <v-card>
-                    <v-list-item-subtitle>
-                      {{ resume[0].title }}
-                    </v-list-item-subtitle>
-                    <v-list-item-subtitle class="mb-4">
-                      {{ resume[0].description }}
-                    </v-list-item-subtitle>
-
-                  </v-card>
                   
                   <v-list-item-title class="mb-1">
                     Дата создания
@@ -159,6 +163,7 @@
           </v-col>
         </v-row>
 
+        <!-- SLIDER -->
         <v-row >
           <v-col>
             <v-card
@@ -246,6 +251,8 @@ import {
   API_GET_MATHING_SERVICES_URL,
 } from '../api.js'
 import axios from 'axios'
+import download from 'downloadjs'
+
 export default {
   data: () => ({
     items: [0],
@@ -256,11 +263,14 @@ export default {
     },
 
     favorites: [0],
+
+    dataStr: String,
   }),
   async created() {
     await axios
         .post(API_GET_ALL_RESUMES_URL)
         .then(response => (this.items = response.data['objects']));
+  
   },
   methods: {
     async getUserDataById(id) {
@@ -290,9 +300,12 @@ export default {
     },
 
     favoriteClick(item) {
-      this.favorites[item.id] = !this.favorites[item.id];  
-      this.$cookie.set('favorites', this.favorites, 1);
+      this.favorites[item.id] = !this.favorites[item.id];
     },
+    exportData() {
+      this.dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.items));
+      download(this.dataStr, "resume_database.json", "text/plain");
+    }
   },
 }
 </script>
