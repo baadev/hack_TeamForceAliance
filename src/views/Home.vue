@@ -11,7 +11,7 @@
           Скачать всю БД
         </v-btn>
         <v-btn @click="exportData">
-          Скачать  БД
+          Скачать выборку
         </v-btn>
 
         <v-card
@@ -270,7 +270,18 @@ export default {
     await axios
         .post(API_GET_ALL_RESUMES_URL)
         .then(response => (this.items = response.data['objects']));
-  
+    
+    if(this.$route.params['id']) 
+      this.openResume(this.$route.params['id'])
+    else
+      this.openResume(0)
+    
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        this.openResume(toParams['id'])
+      }
+    )
   },
   methods: {
     async getUserDataById(id) {
@@ -297,6 +308,8 @@ export default {
     async openResume(id) {
       this.getResumeById(id);
       this.getMatchingServices(this.resume[0].tags);
+      this.$router.replace({ path: '/home/' + id })
+
     },
 
     favoriteClick(item) {
